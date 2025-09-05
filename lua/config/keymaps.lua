@@ -6,55 +6,72 @@ local map = vim.keymap.set
 
 vim.api.nvim_set_keymap("v", "<Tab>", ">gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, desc = "Select all text" })
+-- vim.keymap.set("n", "<S-h>", "<C-w>h")
+-- vim.keymap.set("n", "<S-j>", "<C-w>j")
+-- vim.keymap.set("n", "<S-k>", "<C-w>k")
+-- vim.keymap.set("n", "<S-l>", "<C-w>l")
 
-local function changeToEng()
-  local os = vim.loop.os_uname().sysname
-  if os:find("Windows_NT") then
-    vim.fn.jobstart("E:\\im-select.exe 1033")
-  elseif os == "Darwin" then
-    vim.fn.jobstart("im-select com.apple.keylayout.ABC")
-  end
-end
-
--- Normal mode remaps
-map("n", ";", ":", { desc = "CMD enter command mode" })
-
--- Thai to English switch for normal mode keys
-map("n", "ร", function()
-  changeToEng()
-  return "j"
-end, { expr = true, desc = "Thai ร → j" })
-
-map("n", "า", function()
-  changeToEng()
-  return "k"
-end, { expr = true, desc = "Thai า → k" })
-
-map("n", "่", function()
-  changeToEng()
-  return "h"
-end, { expr = true, desc = "Thai ้ → h" })
-
-map("n", "ส", function()
-  changeToEng()
-  return "l"
-end, { expr = true, desc = "Thai ส → l" })
-
--- Insert mode remap to exit insert mode
 map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
 
--- AutoCmd to switch to English after leaving Insert mode
-vim.api.nvim_create_autocmd("InsertLeave", {
-  callback = function()
-    changeToEng()
-  end,
-})
-
--- AutoCmd to switch to English when leaving the command line mode
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  callback = function()
-    changeToEng()
-  end,
-})
-
+local opts = { noremap = true, silent = true }
+map({ "n", "v" }, "d", [["_d]], opts)
+map({ "n", "v" }, "D", [["_D]], opts)
+map({ "n", "v" }, "x", [["_x]], opts)
+map({ "n", "v" }, "X", [["_X]], opts)
+map({ "n", "v" }, "c", [["_c]], opts)
+map({ "n", "v" }, "C", [["_C]], opts)
+map("n", "dd", [["_dd]], opts)
+--
+-- local function changetoeng()
+-- 	local os = vim.loop.os_uname().sysname
+-- 	if os == "linux" then
+-- 		vim.fn.jobstart({ "setxkbmap", "us" })
+-- 		elseif os == "darwin" then
+-- 			vim.fn.jobstart("im-select com.apple.keylayout.abc")
+-- 		elseif os:find("windows_nt") then
+-- 			vim.fn.jobstart("e:\\im-select.exe 1033")
+-- 	end
+-- end
+--
+-- -- normal mode remaps
+-- map("n", ";", ":", { desc = "cmd enter command mode" })
+--
+-- -- thai to english switch for normal mode keys
+-- map("n", "ร", function()
+-- 	changetoeng()
+-- 	return "j"
+-- end, { expr = true, desc = "thai ร → j" })
+--
+-- map("n", "า", function()
+-- 	changetoeng()
+-- 	return "k"
+-- end, { expr = true, desc = "thai า → k" })
+--
+-- map("n", "่", function()
+-- 	changetoeng()
+-- 	return "h"
+-- end, { expr = true, desc = "Thai ้ → h" })
+--
+-- map("n", "ส", function()
+-- 	changeToEng()
+-- 	return "l"
+-- end, { expr = true, desc = "Thai ส → l" })
+--
+-- -- Insert mode remap to exit insert mode
+--
+-- -- AutoCmd to switch to English after leaving Insert mode
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+-- 	callback = function()
+-- 		changeToEng()
+-- 	end,
+-- })
+--
+-- -- AutoCmd to switch to English when leaving the command line mode
+-- vim.api.nvim_create_autocmd("CmdlineLeave", {
+-- 	callback = function()
+-- 		changeToEng()
+-- 	end,
+-- })
+--
 return {}
