@@ -22,6 +22,18 @@ map({ "n", "v" }, "X", [["_X]], opts)
 map({ "n", "v" }, "c", [["_c]], opts)
 map({ "n", "v" }, "C", [["_C]], opts)
 map("n", "dd", [["_dd]], opts)
+
+map("n", "<leader>gl", function()
+  Snacks.picker.git_log()
+end, { desc = "Git Log" })
+
+map("n", "<leader>gf", function()
+  Snacks.picker.git_log_file()
+end, { desc = "Git Log File" })
+
+map("n", "<leader>gL", function()
+  Snacks.picker.git_log_line()
+end, { desc = "Git Log Line" })
 --
 -- local function changetoeng()
 -- 	local os = vim.loop.os_uname().sysname
