@@ -35,55 +35,34 @@ map("n", "<leader>gL", function()
   Snacks.picker.git_log_line()
 end, { desc = "Git Log Line" })
 --
--- local function changetoeng()
--- 	local os = vim.loop.os_uname().sysname
--- 	if os == "linux" then
--- 		vim.fn.jobstart({ "setxkbmap", "us" })
--- 		elseif os == "darwin" then
--- 			vim.fn.jobstart("im-select com.apple.keylayout.abc")
--- 		elseif os:find("windows_nt") then
--- 			vim.fn.jobstart("e:\\im-select.exe 1033")
--- 	end
--- end
---
--- -- normal mode remaps
--- map("n", ";", ":", { desc = "cmd enter command mode" })
---
--- -- thai to english switch for normal mode keys
--- map("n", "ร", function()
--- 	changetoeng()
--- 	return "j"
--- end, { expr = true, desc = "thai ร → j" })
---
--- map("n", "า", function()
--- 	changetoeng()
--- 	return "k"
--- end, { expr = true, desc = "thai า → k" })
---
--- map("n", "่", function()
--- 	changetoeng()
--- 	return "h"
--- end, { expr = true, desc = "Thai ้ → h" })
---
--- map("n", "ส", function()
--- 	changeToEng()
--- 	return "l"
--- end, { expr = true, desc = "Thai ส → l" })
---
--- -- Insert mode remap to exit insert mode
---
--- -- AutoCmd to switch to English after leaving Insert mode
--- vim.api.nvim_create_autocmd("InsertLeave", {
--- 	callback = function()
--- 		changeToEng()
--- 	end,
--- })
---
--- -- AutoCmd to switch to English when leaving the command line mode
--- vim.api.nvim_create_autocmd("CmdlineLeave", {
--- 	callback = function()
--- 		changeToEng()
--- 	end,
--- })
+local function changetoeng()
+  vim.fn.jobstart({ "macism", "com.apple.keylayout.ABC" })
+end
+
+-- thai to english switch for normal mode keys
+map("n", "ร", function()
+  changetoeng()
+  return "j"
+end, { expr = true, desc = "thai ร → j" })
+
+map("n", "า", function()
+  changetoeng()
+  return "k"
+end, { expr = true, desc = "thai า → k" })
+
+map("n", "่", function()
+  changetoeng()
+  return "h"
+end, { expr = true, desc = "thai ่ → h" })
+
+map("n", "ส", function()
+  changetoeng()
+  return "l"
+end, { expr = true, desc = "thai ส → l" })
+
+-- Switch to English after leaving Insert / Command mode
+vim.api.nvim_create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
+  callback = changetoeng,
+})
 --
 return {}

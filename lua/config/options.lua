@@ -3,4 +3,10 @@
 -- Add any additional options here
 vim.opt.clipboard = "unnamedplus"
 
+-- Thai language support
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.linebreak = false
+
+
 
